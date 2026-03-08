@@ -1,7 +1,7 @@
 import { Transaction } from '@mysten/sui/transactions';
 import { SuiGrpcClient } from '@mysten/sui/grpc';
 import { Ed25519Keypair } from '@mysten/sui/keypairs/ed25519';
-import keyPairJson from "../keypair.json" with { type: "json" };
+import keyPairJson from "../keypair3.json" with { type: "json" };
 
 const CTF_PACKAGE_ID = "0xd56e5075ba297f9e37085a37bb0abba69fabdf9987f8f4a6086a3693d88efbfd";
 const ARENA_ID = "0xc211bf89f9acbf24ece070b1deb5f83b62828b7656237179759ee2135841ca3e";

@@ -10,6 +10,13 @@ const PLAYERS_TABLE_ID = "0x5866b885fa6dda42f05daf28f7fde161d4e93d9991f5ba8f8353
 const CLOCK_ID = "0x6";
 const RPC_URL = "https://fullnode.testnet.sui.io:443";
 
+const FRIENDLY_ADDRESSES = new Set([
+  "0x63eb8d321f939a32b229f797d64c29e0b58efa8a6734150d3528ebcfb0613508", // wallet 1
+  "0x22c5bb870047d22af071b46943eaa60c58d07d848c7a345d2256d471bc455b8c", // wallet 2
+  "0x73d95993c2de535c6749f511256b5387e3c46fbf5ba62c22da7c29685721c662", // wallet 3
+  "0xbf1cabdaff48602de4c2dc2491714a668a2974b96bcdeb965697e9b3574f0acc", // extra wallet
+]);
+
 const keypair = Ed25519Keypair.fromSecretKey(keyPairJson.privateKey);
 const suiClient = new SuiGrpcClient({
   network: 'testnet',
@@ -69,7 +76,7 @@ async function scanPlayers(myAddress: string, maxPages = 4): Promise<PlayerEntry
 
     const entries = await Promise.all(
       result.data
-        .filter(f => f.name.type === 'address' && f.name.value !== myAddress)
+        .filter(f => f.name.type === 'address' && !FRIENDLY_ADDRESSES.has(f.name.value))
         .map(async f => {
           const state = await getPlayerState(f.name.value);
           return state ? { address: f.name.value, state } : null;
